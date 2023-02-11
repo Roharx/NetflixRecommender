@@ -34,6 +34,7 @@ public class LogInController implements Initializable {
     }
 
     public void logIn(ActionEvent actionEvent) throws IOException {
+        //TODO minimize or close the login window after logging in correctly
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("dk/easv/presentation/view/NetflixApp.fxml"));
 
         root = loader.load();
@@ -46,6 +47,14 @@ public class LogInController implements Initializable {
         primaryStage.setScene(scene);
         primaryStage.initModality(Modality.APPLICATION_MODAL);
         primaryStage.show();
+
+        primaryStage.widthProperty().addListener((o, oldValue, newValue)->{
+            if(newValue.intValue() < 850.0) {
+                primaryStage.setResizable(false);
+                primaryStage.setWidth(850);
+                primaryStage.setResizable(true);
+            }
+        });
     }
 
 
