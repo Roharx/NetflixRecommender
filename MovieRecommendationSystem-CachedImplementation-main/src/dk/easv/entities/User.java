@@ -8,6 +8,7 @@ public class User {
     private String name;
     private List<Rating> ratings;
 
+
     public User(int id, String name) {
         this.id = id;
         this.name = name;

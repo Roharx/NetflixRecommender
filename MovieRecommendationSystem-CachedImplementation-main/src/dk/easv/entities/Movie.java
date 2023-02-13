@@ -1,5 +1,7 @@
 package dk.easv.entities;
 
+import javafx.scene.image.Image;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,13 +11,14 @@ public class Movie {
     private int year;
     private List<Rating> ratings;
 
+
+
     public Movie(int id, String title, int year) {
         this.id = id;
         this.title = title;
         this.year = year;
         this.ratings = new ArrayList<>();
     }
-
     public double getAverageRating(){
         double sum = 0;
         for (Rating r: ratings){

@@ -12,21 +12,28 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.function.ToDoubleBiFunction;
 
 public class LogInController implements Initializable {
     @FXML
-    private Button btnRecover,btnLogin,btnRegisterNewUser;
-    @FXML private PasswordField passwordField;
-    @FXML private TextField userId;
+    private BorderPane logInPane;
+    @FXML
+    private Button btnRecover, btnLogin, btnRegisterNewUser;
+    @FXML
+    private PasswordField passwordField;
+    @FXML
+    private TextField userId;
     private AppModel model;
     private Parent root;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -34,7 +41,7 @@ public class LogInController implements Initializable {
     }
 
     public void logIn(ActionEvent actionEvent) throws IOException {
-        //TODO minimize or close the login window after logging in correctly
+
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("dk/easv/presentation/view/NetflixApp.fxml"));
 
         root = loader.load();
@@ -48,15 +55,21 @@ public class LogInController implements Initializable {
         primaryStage.initModality(Modality.APPLICATION_MODAL);
         primaryStage.show();
 
-        primaryStage.widthProperty().addListener((o, oldValue, newValue)->{
-            if(newValue.intValue() < 850.0) {
+        primaryStage.widthProperty().addListener((o, oldValue, newValue) -> {
+            if (newValue.intValue() < 850.0) {
                 primaryStage.setResizable(false);
                 primaryStage.setWidth(850);
                 primaryStage.setResizable(true);
             }
         });
+        closeWindow();
     }
 
+
+    private void closeWindow() {
+        Stage stage = (Stage) logInPane.getScene().getWindow();
+        stage.close();
+    }
 
 
     public void registerNewUser(ActionEvent actionEvent) {
@@ -64,6 +77,7 @@ public class LogInController implements Initializable {
 
     }
 
+}
 
 
     /*public void logIn(ActionEvent actionEvent) throws IOException {
@@ -102,4 +116,3 @@ public class LogInController implements Initializable {
         System.out.println("Sign-Up");
     }*/
 
-}

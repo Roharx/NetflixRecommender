@@ -7,17 +7,33 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class AppModel {
 
     LogicManager logic = new LogicManager();
+
     // Models of the data in the view
     private final ObservableList<User>  obsUsers = FXCollections.observableArrayList();
     private final ObservableList<Movie> obsTopMovieSeen = FXCollections.observableArrayList();
     private final ObservableList<Movie> obsTopMovieNotSeen = FXCollections.observableArrayList();
     private final ObservableList<UserSimilarity>  obsSimilarUsers = FXCollections.observableArrayList();
     private final ObservableList<TopMovie> obsTopMoviesSimilarUsers = FXCollections.observableArrayList();
-
     private final SimpleObjectProperty<User> obsLoggedInUser = new SimpleObjectProperty<>();
+
+    private ObservableList<Movie> movies ;
+    private ObservableList<Movie> getMovies() throws SQLException {
+        List<Movie> m = logic.getAllMovies();
+        return movies = FXCollections.observableArrayList(m);
+    }
+    public void search(String query) throws SQLException {
+        movies.clear();
+        movies.addAll(logic.searchMovies(query));
+    }
+
+
 
     public void loadUsers(){
         obsUsers.clear();
@@ -69,7 +85,6 @@ public class AppModel {
     public void setObsLoggedInUser(User obsLoggedInUser) {
         this.obsLoggedInUser.set(obsLoggedInUser);
     }
-
     public boolean loginUserFromUsername(String userName) {
         User u = logic.getUser(userName);
         obsLoggedInUser.set(u);
@@ -78,4 +93,7 @@ public class AppModel {
         else
             return true;
     }
+
+
+
 }

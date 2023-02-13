@@ -7,6 +7,8 @@ import dk.easv.entities.User;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,8 +36,6 @@ public class DataAccessManager {
     public List<Rating> getAllRatings(){
         return ratings;
     }
-
-
     public void updateCacheFromDisk(){
         loadAllRatings();
     }

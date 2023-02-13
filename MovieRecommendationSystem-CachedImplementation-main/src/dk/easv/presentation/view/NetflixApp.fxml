@@ -2,14 +2,16 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="background" prefHeight="700.0" prefWidth="1200.0" stylesheets="@css/design.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.presentation.controller.NetflixAppController">
+<AnchorPane id="background" fx:id="scenePane" prefHeight="700.0" prefWidth="1200.0" stylesheets="@css/design.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.presentation.controller.NetflixAppController">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" ellipsisString="AREAL" layoutX="457.0" layoutY="14.0" minWidth="250.0" prefHeight="50.0" text="NETFLIX" textAlignment="CENTER" textFill="#eb0909" textOverrun="CENTER_WORD_ELLIPSIS" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
          <font>
@@ -19,13 +21,13 @@
             <Insets />
          </opaqueInsets>
       </Label>
-      <AnchorPane id="control-frame" fx:id="anchorControlFrame" layoutY="63.0" prefHeight="71.0" prefWidth="800.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="63.0">
+      <AnchorPane id="control-frame" fx:id="anchorControlFrame" layoutY="67.0" prefHeight="71.0" prefWidth="800.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="67.0">
          <children>
             <Button fx:id="btnHome" layoutX="31.0" layoutY="1.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="100.0" style="-fx-background-color: transparent;" styleClass="display-element" text="🏠" textFill="BLACK" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <font>
                   <Font size="21.0" />
                </font></Button>
-            <Button fx:id="btnSearch" layoutX="367.0" layoutY="-1.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="54.0" style="-fx-background-color: transparent;" styleClass="display-element" text="🔍" textFill="BLACK" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="340.0" AnchorPane.topAnchor="0.0">
+            <Button fx:id="btnSearch" layoutX="367.0" layoutY="-1.0" mnemonicParsing="false" onAction="#searchMovies" prefHeight="74.0" prefWidth="54.0" style="-fx-background-color: transparent;" styleClass="display-element" text="🔍" textFill="BLACK" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="367.0" AnchorPane.topAnchor="0.0">
                <font>
                   <Font size="21.0" />
                </font></Button>
@@ -41,7 +43,7 @@
                <font>
                   <Font size="21.0" />
                </font></Button>
-            <Button fx:id="btnMenu" layoutX="1080.0" layoutY="-1.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="50.0" style="-fx-background-color: transparent;" styleClass="display-element" text="☰" textFill="BLACK" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Button fx:id="btnMenu" layoutX="1045.0" mnemonicParsing="false" prefHeight="73.0" prefWidth="50.0" style="-fx-background-color: transparent;" styleClass="display-element" text="☰" textFill="BLACK" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="105.0" AnchorPane.topAnchor="0.0">
                <font>
                   <Font size="21.0" />
                </font></Button>
@@ -49,7 +51,16 @@
                <font>
                   <Font size="20.0" />
                </font></TextField>
-            <ImageView fx:id="imageViewUser" fitHeight="70.0" fitWidth="100.0" layoutX="1107.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="0.0" />
+            <ImageView fx:id="imageViewUser" fitHeight="70.0" fitWidth="67.0" layoutX="1115.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="1.3333333333333286" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="2.0" />
+            <Label layoutX="1048.0" layoutY="28.0" prefHeight="24.0" prefWidth="67.0">
+               <contextMenu>
+                  <ContextMenu fx:id="contMenuLogOut" onAction="#logOut">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Log Out" />
+                    </items>
+                  </ContextMenu>
+               </contextMenu>
+            </Label>
          </children>
       </AnchorPane>
       <AnchorPane id="background" fx:id="anchorDisplay" layoutY="175.0" prefHeight="555.0" prefWidth="800.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="175.0">
