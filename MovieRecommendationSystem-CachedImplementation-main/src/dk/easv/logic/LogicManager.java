@@ -2,6 +2,8 @@ package dk.easv.logic;
 
 import dk.easv.dataaccess.DataAccessManager;
 import dk.easv.entities.*;
+
+import java.sql.SQLException;
 import java.util.*;
 
 public class LogicManager {
@@ -17,6 +19,22 @@ public class LogicManager {
     }
 
     // Gets all rated movies for one user and returns them sorted by avg. best by all users.
+
+    public List<Movie> searchMovies(String query) throws SQLException {
+        //List<Movie> movies = (List<Movie>) dataMgr.getAllMovies();
+        List<Movie> filtered = new ArrayList<>();
+
+        for (Movie m : dataMgr.getAllMovies().values()) {
+            if (("" + m.getTitle().toLowerCase()).contains(query.toLowerCase())) {
+                filtered.add(m);
+            }
+        }
+        return filtered;
+    }
+    public List<Movie> getAllMovies() throws SQLException {
+        return (List<Movie>) dataMgr.getAllMovies();
+    }
+
     public List<Movie> getTopAverageRatedMovies(User u) {
         List<Movie> top = new ArrayList<>();
 
