@@ -3,6 +3,8 @@ package dk.easv.presentation.controller;
 import dk.easv.entities.Movie;
 import dk.easv.entities.User;
 import dk.easv.presentation.model.AppModel;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,8 +19,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class NetflixAppController implements Initializable {
@@ -49,7 +53,20 @@ public class NetflixAppController implements Initializable {
         currentUser = appModel.getLoggedInUser();
         appModel.loadData(currentUser);
         displayContent(anchorDisplay);
+
+        txfSearch.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                try {
+                    appModel.search(newValue);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
     }
+
+
 
     private ObservableList<Movie> getMovieRecommendations(int movieAmount) {
         ObservableList<Movie> allMoviesToBeSeen = appModel.getObsTopMovieNotSeen();
@@ -126,5 +143,12 @@ public class NetflixAppController implements Initializable {
         }
 
     }
+   /* public void logOut(ActionEvent actionEvent) {
+
+        Stage stage  = (Stage) scenePane.getScene().getWindow();
+        stage.close();
+
+    }*/
+
 
 }
