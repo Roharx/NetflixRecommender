@@ -1,0 +1,2 @@
+1,C:\Balint\Progik\NetflixRecommender\MovieRecommendationSystem-CachedImplementation-main\data\images\image5.png
+3033,C:\Balint\Progik\NetflixRecommender\MovieRecommendationSystem-CachedImplementation-main\data\images\Logo_Ghost_in_the_Shell_2017.png

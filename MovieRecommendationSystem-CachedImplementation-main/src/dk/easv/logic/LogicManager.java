@@ -115,4 +115,8 @@ public class LogicManager {
             return null;
         }
     }
+
+    public String getMoviePicturePathByID(int id){
+        return dataMgr.getMoviePicturePathByID(id);
+    }
 }

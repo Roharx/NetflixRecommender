@@ -22,7 +22,9 @@ import java.util.function.ToDoubleBiFunction;
 
 public class LogInController implements Initializable {
     @FXML
-    private Button btnRecover,btnLogin,btnRegisterNewUser;
+    private Button btnRecover,
+            btnLogin,
+            btnRegisterNewUser;
     @FXML private PasswordField passwordField;
     @FXML private TextField userId;
     private AppModel model;
@@ -34,18 +36,29 @@ public class LogInController implements Initializable {
     }
 
     public void logIn(ActionEvent actionEvent) throws IOException {
-        //TODO minimize or close the login window after logging in correctly
+        //TODO get it to display while app is "frozen/loading"
+
+        btnLogin.setText("Logging in...");
+        btnLogin.setDisable(true);
+
+
+        model.setLoggedInUser(model.getUserByUsername(userId.getText()));
+
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("dk/easv/presentation/view/NetflixApp.fxml"));
 
         root = loader.load();
-
-        NetflixAppController controller = loader.getController();
 
         Scene scene = new Scene(root);
         Stage primaryStage = new Stage();
         primaryStage.setTitle("NetflixApp");
         primaryStage.setScene(scene);
         primaryStage.initModality(Modality.APPLICATION_MODAL);
+
+        btnLogin.setText("Login");
+        btnLogin.setDisable(false);
+
+        primaryStage.setWidth(1250);
+
         primaryStage.show();
 
         primaryStage.widthProperty().addListener((o, oldValue, newValue)->{
@@ -60,12 +73,12 @@ public class LogInController implements Initializable {
 
 
     public void registerNewUser(ActionEvent actionEvent) {
-        //TODO
+        //TODO only if we have enough time, otherwise delete
 
     }
 
 
-
+    //TODO delete if not used by the end of the project
     /*public void logIn(ActionEvent actionEvent) throws IOException {
         model.loadUsers();
         model.loginUserFromUsername(userId.getText());

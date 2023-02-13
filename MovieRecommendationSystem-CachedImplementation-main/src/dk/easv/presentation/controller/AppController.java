@@ -9,7 +9,7 @@ import javafx.scene.control.ListView;
 import java.net.URL;
 import java.util.*;
 
-public class AppController implements Initializable {
+public class AppController implements Initializable {//TODO irrelevant class, to be deleted
     @FXML
     private ListView<User> lvUsers;
     @FXML
@@ -59,6 +59,6 @@ public class AppController implements Initializable {
                 });
 
         // Select the logged-in user in the listview, automagically trigger the listener above
-        lvUsers.getSelectionModel().select(model.getObsLoggedInUser());
+        //lvUsers.getSelectionModel().select(model.getObsLoggedInUser());
     }
 }

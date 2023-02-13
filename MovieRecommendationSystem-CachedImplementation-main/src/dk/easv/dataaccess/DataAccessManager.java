@@ -39,6 +39,7 @@ public class DataAccessManager {
     public void updateCacheFromDisk(){
         loadAllRatings();
     }
+    public String getMoviePicturePathByID(int id){return searchMoviePicturePathByID(id);}
 
     private void loadAllMovies() {
         try {
@@ -88,5 +89,23 @@ public class DataAccessManager {
         }
     }
 
+    private String searchMoviePicturePathByID(int id){
+        String picturePath = "";
+
+        try {
+            List<String> moviesAndPictures = Files.readAllLines(Path.of("MovieRecommendationSystem-CachedImplementation-main/data/movies_pictures.txt"));
+            for (String line : moviesAndPictures) {
+                String[] lineContent = line.split(",");
+                if(id == Integer.parseInt(lineContent[0]))
+                    picturePath = lineContent[1];
+            }
+
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return picturePath;
+    }
 
 }
