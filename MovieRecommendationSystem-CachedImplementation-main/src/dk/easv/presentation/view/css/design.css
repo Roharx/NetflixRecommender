@@ -1,12 +1,18 @@
-#background {
+.display-container{
     -fx-background-color: #262626;
+    -fx-padding: 20px;
 }
 
-#control-frame {
-    -fx-background-color: #D9D9D9;
-}
 .control-elements{
     -fx-display: inline-block;
+    -fx-width: 300px;
+    -fx-height: 150px;
+}
+.display-text{
+    -fx-padding: 20px;
+    -fx-text-fill: white;
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
 }
 .button{
     -fx-background-radius: 5px;
@@ -29,13 +35,38 @@
     -fx-scale-y: 1;
     -fx-scale-z: 1;
 }
-
+.menu-element{
+    -fx-font-size: 20px;
+}
 .display-element{
     -fx-background-color: #535353;
     -fx-background-radius: 5px;
+    -fx-padding: 5px;
+    -fx-position: relative;
+    -fx-border-color: black;
+    -fx-border-radius: 5px;
+    -fx-border-size: 1px;
 }
 .display-element:hover{
-    -fx-transform: 1.5;
+    -fx-scale-x: 1.2;
+    -fx-scale-y: 1.2;
+    -fx-scale-z: 1.2;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 4, 4);
+}
+.movie-picture{
+    -fx-background-radius: 5px;
+    -fx-height: 20px;
+    -fx-width: 40px;
+}
+.movie-title{
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 15px;
+    -fx-padding: 5px;
+    -fx-max-width: 260px;
+    -fx-background-color: #262626;
+    -fx-background-radius: 5px;
 }
 
 #accept-button {
@@ -48,4 +79,11 @@
 
 #option-button {
     -fx-background-color: #536D8E;
+}
+#background {
+    -fx-background-color: #262626;
+}
+
+#control-frame {
+    -fx-background-color: #D9D9D9;
 }

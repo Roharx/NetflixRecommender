@@ -6,7 +6,6 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="background" prefHeight="700.0" prefWidth="1200.0" stylesheets="@css/design.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.presentation.controller.NetflixAppController">
@@ -19,67 +18,38 @@
             <Insets />
          </opaqueInsets>
       </Label>
+      <AnchorPane fx:id="anchorDisplay" layoutY="175.0" prefHeight="555.0" prefWidth="800.0" styleClass="display-container" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="175.0" />
       <AnchorPane id="control-frame" fx:id="anchorControlFrame" layoutY="63.0" prefHeight="71.0" prefWidth="800.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="63.0">
          <children>
-            <Button fx:id="btnHome" layoutX="31.0" layoutY="1.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="100.0" style="-fx-background-color: transparent;" styleClass="display-element" text="🏠" textFill="BLACK" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Button fx:id="btnHome" layoutX="31.0" layoutY="1.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="100.0" style="-fx-background-color: transparent;" styleClass="menu-element" text="🏠" textFill="BLACK" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <font>
                   <Font size="21.0" />
                </font></Button>
-            <Button fx:id="btnSearch" layoutX="367.0" layoutY="-1.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="54.0" style="-fx-background-color: transparent;" styleClass="display-element" text="🔍" textFill="BLACK" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="340.0" AnchorPane.topAnchor="0.0">
+            <Button fx:id="btnSearch" layoutX="367.0" layoutY="-1.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="54.0" style="-fx-background-color: transparent;" styleClass="menu-element" text="🔍" textFill="BLACK" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="340.0" AnchorPane.topAnchor="0.0">
                <font>
                   <Font size="21.0" />
                </font></Button>
-            <Button fx:id="btnNewestMovie" layoutX="695.0" layoutY="1.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="100.0" style="-fx-background-color: transparent;" styleClass="display-element" text="Newest" textFill="BLACK" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="0.0">
+            <Button fx:id="btnNewestMovie" layoutX="695.0" layoutY="1.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="100.0" style="-fx-background-color: transparent;" styleClass="menu-element" text="Newest" textFill="BLACK" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="0.0">
                <font>
                   <Font size="21.0" />
                </font></Button>
-            <Button fx:id="btnHistory" layoutX="795.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="100.0" style="-fx-background-color: transparent;" styleClass="display-element" text="History" textFill="BLACK" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="0.0">
+            <Button fx:id="btnHistory" layoutX="795.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="100.0" style="-fx-background-color: transparent;" styleClass="menu-element" text="History" textFill="BLACK" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="0.0">
                <font>
                   <Font size="21.0" />
                </font></Button>
-            <Button fx:id="btnMyListMovie" layoutX="895.0" layoutY="-2.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="100.0" style="-fx-background-color: transparent;" styleClass="display-element" text="My List" textFill="BLACK" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="0.0">
+            <Button fx:id="btnMyListMovie" layoutX="895.0" layoutY="-2.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="100.0" style="-fx-background-color: transparent;" styleClass="menu-element" text="My List" textFill="BLACK" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="0.0">
                <font>
                   <Font size="21.0" />
                </font></Button>
-            <Button fx:id="btnMenu" layoutX="1080.0" layoutY="-1.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="50.0" style="-fx-background-color: transparent;" styleClass="display-element" text="☰" textFill="BLACK" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Button fx:id="btnMenu" layoutX="1080.0" layoutY="-1.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="50.0" style="-fx-background-color: transparent;" styleClass="menu-element" text="☰" textFill="BLACK" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <font>
                   <Font size="21.0" />
                </font></Button>
-            <TextField fx:id="txfSearch" layoutX="133.0" layoutY="13.0" prefHeight="46.0" prefWidth="233.0" promptText="Search..." style="-fx-background-color: white;" styleClass="display-element" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="15.0">
+            <TextField fx:id="txfSearch" layoutX="133.0" layoutY="13.0" prefHeight="46.0" prefWidth="233.0" promptText="Search..." style="-fx-background-color: white;" styleClass="menu-element" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="15.0">
                <font>
                   <Font size="20.0" />
                </font></TextField>
             <ImageView fx:id="imageViewUser" fitHeight="70.0" fitWidth="100.0" layoutX="1107.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="0.0" />
-         </children>
-      </AnchorPane>
-      <AnchorPane id="background" fx:id="anchorDisplay" layoutY="175.0" prefHeight="555.0" prefWidth="800.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="175.0">
-         <children>
-            <HBox fx:id="hBoxContinue" layoutY="46.0" prefHeight="210.0" prefWidth="1000.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-               <children>
-                  <ImageView fx:id="imageView1" fitHeight="209.0" fitWidth="235.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="imageView2" fitHeight="209.0" fitWidth="235.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="imageView3" fitHeight="209.0" fitWidth="235.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="imageView4" fitHeight="209.0" fitWidth="235.0" opacity="0.67" pickOnBounds="true" preserveRatio="true" />
-               </children>
-            </HBox>
-            <Label fx:id="lblTopLabel" layoutX="14.0" prefHeight="46.0" prefWidth="235.0" text="Continue Watching" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="21.0" />
-               </font>
-            </Label>
-            <HBox fx:id="hBoxTrending" layoutY="308.0" prefHeight="210.0" prefWidth="1000.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-               <children>
-                  <ImageView fx:id="imageView5" fitHeight="209.0" fitWidth="235.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="imageView6" fitHeight="209.0" fitWidth="235.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="imageView7" fitHeight="209.0" fitWidth="235.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="imageView8" fitHeight="209.0" fitWidth="235.0" pickOnBounds="true" preserveRatio="true" />
-               </children>
-            </HBox>
-            <Label fx:id="lblBottomLabel" layoutX="14.0" layoutY="262.0" prefHeight="46.0" prefWidth="235.0" text="Trending" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="21.0" />
-               </font>
-            </Label>
          </children>
       </AnchorPane>
    </children>

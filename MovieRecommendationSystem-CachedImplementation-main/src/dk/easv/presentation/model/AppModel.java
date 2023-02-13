@@ -18,6 +18,15 @@ public class AppModel {
     private final ObservableList<TopMovie> obsTopMoviesSimilarUsers = FXCollections.observableArrayList();
 
     private final SimpleObjectProperty<User> obsLoggedInUser = new SimpleObjectProperty<>();
+    private static User loggedInUser;
+
+    public static void setLoggedInUser(User loggedInUser) {
+        AppModel.loggedInUser = loggedInUser;
+    }
+
+    public static User getLoggedInUser() {
+        return loggedInUser;
+    }
 
     public void loadUsers(){
         obsUsers.clear();
@@ -60,15 +69,15 @@ public class AppModel {
 
     public User getObsLoggedInUser() {
         return obsLoggedInUser.get();
-    }
+    }//TODO irrelevant method, to be deleted
 
     public SimpleObjectProperty<User> obsLoggedInUserProperty() {
         return obsLoggedInUser;
-    }
+    }//TODO irrelevant method, to be deleted
 
     public void setObsLoggedInUser(User obsLoggedInUser) {
         this.obsLoggedInUser.set(obsLoggedInUser);
-    }
+    }//TODO irrelevant method, to be deleted
 
     public boolean loginUserFromUsername(String userName) {
         User u = logic.getUser(userName);
@@ -77,5 +86,12 @@ public class AppModel {
             return false;
         else
             return true;
+    }
+    public User getUserByUsername(String username){
+        return logic.getUser(username);
+    }
+
+    public String getMoviePicturePathByID(int id){
+        return logic.getMoviePicturePathByID(id);
     }
 }
