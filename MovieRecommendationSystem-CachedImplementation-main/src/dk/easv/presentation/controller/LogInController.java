@@ -3,6 +3,8 @@ package dk.easv.presentation.controller;
 import dk.easv.entities.User;
 import dk.easv.presentation.model.AppModel;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -12,6 +14,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -58,7 +61,7 @@ public class LogInController implements Initializable {
         btnLogin.setDisable(false);
 
         primaryStage.setWidth(1250);
-
+        MinimizeWindow();
         primaryStage.show();
 
         primaryStage.widthProperty().addListener((o, oldValue, newValue)->{
@@ -70,7 +73,10 @@ public class LogInController implements Initializable {
         });
     }
 
-
+    private void MinimizeWindow(){
+        Stage stage = (Stage) btnLogin.getScene().getWindow();
+        stage.setIconified(true);
+    }
 
     public void registerNewUser(ActionEvent actionEvent) {
         //TODO only if we have enough time, otherwise delete
