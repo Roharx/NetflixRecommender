@@ -7,12 +7,14 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -23,11 +25,12 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class NetflixAppController implements Initializable {
     @FXML
-    private AnchorPane anchorControlFrame,
+    private AnchorPane scenePane,anchorControlFrame,
             anchorDisplay;
     @FXML
     private Button btnHome,
@@ -43,6 +46,7 @@ public class NetflixAppController implements Initializable {
 
 
     private AppModel appModel;
+    private LogInController logInController;
     private User currentUser;
     private int displayElementWidth = 270, displayElementHeight = 150;
     private int paddingWidth = 20, paddingHeight = 20;
@@ -57,13 +61,9 @@ public class NetflixAppController implements Initializable {
         txfSearch.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                try {
-                    appModel.search(newValue);
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
+                appModel.search(newValue);
             }
-        });
+        });System.out.println(txfSearch.getText());
     }
 
 
@@ -143,12 +143,11 @@ public class NetflixAppController implements Initializable {
         }
 
     }
-   /* public void logOut(ActionEvent actionEvent) {
-
-        Stage stage  = (Stage) scenePane.getScene().getWindow();
+    public void logOut(ActionEvent actionEvent) {
+        Stage stage = (Stage) scenePane.getScene().getWindow();
         stage.close();
+    }
 
-    }*/
-
-
+    public void displayNewestMovies(ActionEvent actionEvent) {
+    }
 }

@@ -19,9 +19,9 @@ public class AppModel {
     private final ObservableList<Movie> obsTopMovieNotSeen = FXCollections.observableArrayList();
     private final ObservableList<UserSimilarity>  obsSimilarUsers = FXCollections.observableArrayList();
     private final ObservableList<TopMovie> obsTopMoviesSimilarUsers = FXCollections.observableArrayList();
-
     private final SimpleObjectProperty<User> obsLoggedInUser = new SimpleObjectProperty<>();
     private static User loggedInUser;
+    private ObservableList<Movie> movies = FXCollections.observableArrayList();
 
     public static void setLoggedInUser(User loggedInUser) {
         AppModel.loggedInUser = loggedInUser;
@@ -31,12 +31,12 @@ public class AppModel {
         return loggedInUser;
     }
 
-    private ObservableList<Movie> movies ;
-    private ObservableList<Movie> getMovies() throws SQLException {
-        List<Movie> m = logic.getAllMovies();
-        return movies = FXCollections.observableArrayList(m);
+
+
+    public AppModel(){
+        logic = new LogicManager();
     }
-    public void search(String query) throws SQLException {
+    public void search(String query)  {
         movies.clear();
         movies.addAll(logic.searchMovies(query));
     }

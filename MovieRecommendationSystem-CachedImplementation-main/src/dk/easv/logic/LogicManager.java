@@ -13,27 +13,35 @@ public class LogicManager {
     public void reloadAllDataFromStorage(){
         dataMgr.updateCacheFromDisk();
     }
+    public Collection<User> getAllUsers() {return dataMgr.getAllUsers().values();
+    }// Gets all rated movies for one user and returns them sorted by avg. best by all users.
 
-    public Collection<User> getAllUsers() {
-        return dataMgr.getAllUsers().values();
-    }
 
-    // Gets all rated movies for one user and returns them sorted by avg. best by all users.
 
-    public List<Movie> searchMovies(String query) throws SQLException {
-        //List<Movie> movies = (List<Movie>) dataMgr.getAllMovies();
-        List<Movie> filtered = new ArrayList<>();
 
-        for (Movie m : dataMgr.getAllMovies().values()) {
-            if (("" + m.getTitle().toLowerCase()).contains(query.toLowerCase())) {
-                filtered.add(m);
-            }
-        }
-        return filtered;
-    }
-    public List<Movie> getAllMovies() throws SQLException {
-        return (List<Movie>) dataMgr.getAllMovies();
-    }
+
+
+
+
+
+
+
+
+
+
+   public List<Movie> searchMovies(String query) {
+
+       //List<Movie> movies = (List<Movie>) dataMgr.getAllMovies();
+       List<Movie> filtered = new ArrayList<>();
+
+       for (Movie m : dataMgr.getAllMovies().values()) {
+           if (("" + m.getTitle().toLowerCase()).contains(query.toLowerCase())) {
+               filtered.add(m);
+           }
+       }
+       return filtered;
+
+   }
 
     public List<Movie> getTopAverageRatedMovies(User u) {
         List<Movie> top = new ArrayList<>();

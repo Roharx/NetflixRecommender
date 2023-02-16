@@ -7,6 +7,7 @@ import dk.easv.entities.User;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,24 +23,21 @@ public class DataAccessManager {
     public DataAccessManager() {
         updateCacheFromDisk();
     }
-
     public Map<Integer, User> getAllUsers() {
         return users;
     }
-
     public Map<Integer, Movie> getAllMovies() {
         return movies;
     }
-
     public List<Rating> getAllRatings(){
         return ratings;
     }
-
 
     public void updateCacheFromDisk(){
         loadAllRatings();
     }
     public String getMoviePicturePathByID(int id){return searchMoviePicturePathByID(id);}
+
 
     private void loadAllMovies() {
         try {
@@ -107,5 +105,8 @@ public class DataAccessManager {
 
         return picturePath;
     }
+
+
+
 
 }

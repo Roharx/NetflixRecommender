@@ -2,13 +2,15 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="background" prefHeight="700.0" prefWidth="1200.0" stylesheets="@css/design.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.presentation.controller.NetflixAppController">
+<AnchorPane id="background" fx:id="scenePane" prefHeight="700.0" prefWidth="1200.0" stylesheets="@css/design.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.presentation.controller.NetflixAppController">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" ellipsisString="AREAL" layoutX="457.0" layoutY="14.0" minWidth="250.0" prefHeight="50.0" text="NETFLIX" textAlignment="CENTER" textFill="#eb0909" textOverrun="CENTER_WORD_ELLIPSIS" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
          <font>
@@ -29,7 +31,7 @@
                <font>
                   <Font size="21.0" />
                </font></Button>
-            <Button fx:id="btnNewestMovie" layoutX="695.0" layoutY="1.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="100.0" style="-fx-background-color: transparent;" styleClass="menu-element" text="Newest" textFill="BLACK" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="0.0">
+            <Button fx:id="btnNewestMovie" layoutX="695.0" layoutY="1.0" mnemonicParsing="false" onAction="#displayNewestMovies" prefHeight="70.0" prefWidth="100.0" style="-fx-background-color: transparent;" styleClass="menu-element" text="Newest" textFill="BLACK" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="0.0">
                <font>
                   <Font size="21.0" />
                </font></Button>
@@ -44,12 +46,20 @@
             <Button fx:id="btnMenu" layoutX="1080.0" layoutY="-1.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="50.0" style="-fx-background-color: transparent;" styleClass="menu-element" text="☰" textFill="BLACK" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <font>
                   <Font size="21.0" />
-               </font></Button>
+               </font>
+               <contextMenu>
+                  <ContextMenu>
+                    <items>
+                      <MenuItem fx:id="menuItemLogOut" mnemonicParsing="false" onAction="#logOut" text="Log Out" />
+                    </items>
+                  </ContextMenu>
+               </contextMenu></Button>
             <TextField fx:id="txfSearch" layoutX="133.0" layoutY="13.0" prefHeight="46.0" prefWidth="233.0" promptText="Search..." style="-fx-background-color: white;" styleClass="menu-element" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="15.0">
                <font>
                   <Font size="20.0" />
                </font></TextField>
             <ImageView fx:id="imageViewUser" fitHeight="70.0" fitWidth="100.0" layoutX="1107.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="0.0" />
+            <Label layoutX="1161.0" layoutY="28.0" />
          </children>
       </AnchorPane>
    </children>

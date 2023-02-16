@@ -60,4 +60,14 @@ public class Movie {
                 ", ratings=" + ratings.size() +
                 ", avg="+ Math.round(getAverageRating()*10)/10.0;
     }
+    /*public int compareTo(Movie m){
+        if(this.year== m.getYear())
+            return 0;
+        else if (this.year > m.getYear())
+            return 1;
+        else return -1;
+        {
+
+        }
+    }*/
 }

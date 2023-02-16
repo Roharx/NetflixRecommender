@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -24,6 +25,8 @@ import java.util.ResourceBundle;
 import java.util.function.ToDoubleBiFunction;
 
 public class LogInController implements Initializable {
+    @FXML
+    private BorderPane bordPaneLogIn;
     @FXML
     private Button btnRecover,
             btnLogin,
@@ -47,9 +50,11 @@ public class LogInController implements Initializable {
 
         model.setLoggedInUser(model.getUserByUsername(userId.getText()));
 
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("dk/easv/presentation/view/NetflixApp.fxml"));
 
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("dk/easv/presentation/view/NetflixApp.fxml"));
         root = loader.load();
+
+        NetflixAppController netflixAppController = loader.getController();
 
         Scene scene = new Scene(root);
         Stage primaryStage = new Stage();
@@ -57,11 +62,12 @@ public class LogInController implements Initializable {
         primaryStage.setScene(scene);
         primaryStage.initModality(Modality.APPLICATION_MODAL);
 
+
         btnLogin.setText("Login");
         btnLogin.setDisable(false);
 
         primaryStage.setWidth(1250);
-        MinimizeWindow();
+        minimizeWindow();
         primaryStage.show();
 
         primaryStage.widthProperty().addListener((o, oldValue, newValue)->{
@@ -73,7 +79,7 @@ public class LogInController implements Initializable {
         });
     }
 
-    private void MinimizeWindow(){
+    private void minimizeWindow(){
         Stage stage = (Stage) btnLogin.getScene().getWindow();
         stage.setIconified(true);
     }
