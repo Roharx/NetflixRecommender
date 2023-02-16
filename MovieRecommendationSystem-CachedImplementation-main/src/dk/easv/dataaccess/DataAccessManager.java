@@ -4,6 +4,7 @@ import dk.easv.entities.Movie;
 import dk.easv.entities.Rating;
 import dk.easv.entities.User;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -106,6 +107,30 @@ public class DataAccessManager {
         }
 
         return picturePath;
+    }
+    private List<Movie> getNewestMovies(){
+        int maxYear = maxYear();
+        List<Movie> newestMovies = new ArrayList<>();
+        try {
+            List<String> allMovies = Files.readAllLines(Path.of("MovieRecommendationSystem-CachedImplementation-main/data/movie_titles.txt"));
+            for (String line : allMovies) {
+                String[] lineContent = line.split(",");
+                if(Integer.parseInt(lineContent[1]) == maxYear)
+                    newestMovies.add(new Movie(Integer.parseInt(lineContent[0]), lineContent[2], Integer.parseInt(lineContent[1])));
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return newestMovies;
+    }
+    private int maxYear(){
+        int currentMaxYear = 0;
+
+
+
+
+        return currentMaxYear;
     }
 
 }
