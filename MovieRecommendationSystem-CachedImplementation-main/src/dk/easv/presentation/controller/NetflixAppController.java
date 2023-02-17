@@ -5,9 +5,9 @@ import dk.easv.entities.User;
 import dk.easv.presentation.model.AppModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -15,11 +15,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class NetflixAppController implements Initializable {
     @FXML
@@ -94,12 +95,11 @@ public class NetflixAppController implements Initializable {
             url = appModel.getMoviePicturePathByID(moviesToDisplay.get(i).getId());
 
             if (url != "")
-                try{
+                try {
                     moviePicture.setImage(new Image(url, displayElementWidth, displayElementHeight - 10, true, false));
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     //TODO if have enough time, display text for wrong path for picture otherwise leave empty
-            }
+                }
 
             movieTitle.setText(moviesToDisplay.get(i).getTitle());
             movieTitle.getStyleClass().add("movie-title");
@@ -127,4 +127,8 @@ public class NetflixAppController implements Initializable {
 
     }
 
+
+    public void getNewestMovies(ActionEvent actionEvent) {
+    }
 }
+

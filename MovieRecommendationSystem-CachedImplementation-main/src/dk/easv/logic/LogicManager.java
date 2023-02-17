@@ -2,13 +2,17 @@ package dk.easv.logic;
 
 import dk.easv.dataaccess.DataAccessManager;
 import dk.easv.entities.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import java.io.*;
 import java.util.*;
 
 public class LogicManager {
 
     DataAccessManager dataMgr = new DataAccessManager();
 
-    public void reloadAllDataFromStorage(){
+    public void reloadAllDataFromStorage() {
         dataMgr.updateCacheFromDisk();
     }
 
@@ -20,7 +24,7 @@ public class LogicManager {
     public List<Movie> getTopAverageRatedMovies(User u) {
         List<Movie> top = new ArrayList<>();
 
-        for(Rating rating: u.getRatings())
+        for (Rating rating : u.getRatings())
             top.add(rating.getMovie());
 
         Collections.sort(top, Comparator.comparing(Movie::getAverageRating).reversed());
@@ -32,14 +36,14 @@ public class LogicManager {
     public List<Movie> getTopAverageRatedMoviesUserDidNotSee(User u) {
         List<Movie> top = new ArrayList<>();
 
-        for (Movie m : dataMgr.getAllMovies().values()){
+        for (Movie m : dataMgr.getAllMovies().values()) {
             boolean isSeen = false;
-            for(Rating r : u.getRatings())
-                if(r.getMovie()==m) {
+            for (Rating r : u.getRatings())
+                if (r.getMovie() == m) {
                     isSeen = true;
                     break;
                 }
-            if(!isSeen)
+            if (!isSeen)
                 top.add(m);
         }
 
@@ -48,28 +52,27 @@ public class LogicManager {
         return top;
     }
 
-    private double calculateUserSimilarity(User u1, User u2){
+    private double calculateUserSimilarity(User u1, User u2) {
         int count = 0;
         double rsim = 0;
         List<Rating> r1 = u1.getRatings();
         List<Rating> r2 = u2.getRatings();
-        for (Rating ur1 : r1){
-            for(Rating ur2 : r2){
-                if(ur1.getMovie()==ur2.getMovie())
-                {
+        for (Rating ur1 : r1) {
+            for (Rating ur2 : r2) {
+                if (ur1.getMovie() == ur2.getMovie()) {
                     double diff = ur1.getRating() - ur2.getRating();
-                    rsim += Math.abs(diff)/10;
+                    rsim += Math.abs(diff) / 10;
                     count++;
                 }
             }
         }
-        return 1-(rsim/count); // 1.0 = 100% identical; 0.0 no similarities
+        return 1 - (rsim / count); // 1.0 = 100% identical; 0.0 no similarities
     }
 
-    public List<UserSimilarity> getTopSimilarUsers(User user){
+    public List<UserSimilarity> getTopSimilarUsers(User user) {
         List<UserSimilarity> allUsersSimList = new ArrayList<>();
-        for (User u: dataMgr.getAllUsers().values()){
-            if(u!=user)
+        for (User u : dataMgr.getAllUsers().values()) {
+            if (u != user)
                 allUsersSimList.add(new UserSimilarity(u, calculateUserSimilarity(user, u)));
         }
         Collections.sort(allUsersSimList, Comparator.comparing(UserSimilarity::getSimilarity).reversed());
@@ -77,26 +80,26 @@ public class LogicManager {
         return allUsersSimList;
     }
 
-    public List<TopMovie> getTopMoviesFromSimilarPeople(User u){
+    public List<TopMovie> getTopMoviesFromSimilarPeople(User u) {
         List<UserSimilarity> userSimList = getTopSimilarUsers(u);
         List<TopMovie> favorites = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
             int topAmount = 100;
             List<Rating> ratings = userSimList.get(i).getUser().getRatings();
-            if(topAmount>=ratings.size())
-                topAmount=ratings.size()-1;
+            if (topAmount >= ratings.size())
+                topAmount = ratings.size() - 1;
             for (int j = 0; j < topAmount; j++) {
                 Movie m = ratings.get(j).getMovie();
                 double rating = ratings.get(j).getRating();
 
                 boolean found = false;
-                for (TopMovie topmovie : favorites){
-                    if(topmovie.getMovie()==m) {
+                for (TopMovie topmovie : favorites) {
+                    if (topmovie.getMovie() == m) {
                         topmovie.getRawRatings().add(rating);
-                        found=true;
+                        found = true;
                     }
                 }
-                if(!found){
+                if (!found) {
                     TopMovie tm = new TopMovie(m);
                     tm.getRawRatings().add(rating);
                     favorites.add(tm);
@@ -110,13 +113,43 @@ public class LogicManager {
     public User getUser(String userName) {
         try {
             return dataMgr.getAllUsers().values().stream().filter(u -> u.getName().equals(userName)).findFirst().get();
-        }
-        catch (NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             return null;
         }
     }
 
-    public String getMoviePicturePathByID(int id){
+    public String getMoviePicturePathByID(int id) {
         return dataMgr.getMoviePicturePathByID(id);
     }
+
+    public List<Movie> getNewestMovies() {
+        return dataMgr.getNewestMovies();
+    }
+
+
+    public static void main(String[] args) {
+        // TODO Balint make nice :D (search in enter press)
+
+        File input = new File("MovieRecommendationSystem-CachedImplementation-main/data/movie_titles.txt");
+        FileReader fileReader = null;
+        String SearchWords, str;
+        Scanner scanner = new Scanner(System.in);
+        SearchWords = scanner.nextLine();
+        String line = "";
+
+        try {
+            fileReader = new FileReader(input);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+            while ((str = bufferedReader.readLine()) != null) {
+                if (str.contains(SearchWords.toLowerCase()))
+                    System.out.println(str + "\n");
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
+

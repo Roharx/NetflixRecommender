@@ -4,13 +4,12 @@ import dk.easv.entities.Movie;
 import dk.easv.entities.Rating;
 import dk.easv.entities.User;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class DataAccessManager {
     private HashMap<Integer, User> users = new HashMap<>();
@@ -40,6 +39,7 @@ public class DataAccessManager {
         loadAllRatings();
     }
     public String getMoviePicturePathByID(int id){return searchMoviePicturePathByID(id);}
+
 
     private void loadAllMovies() {
         try {
@@ -108,4 +108,26 @@ public class DataAccessManager {
         return picturePath;
     }
 
+    private List<Movie> searchNewestMovies(){
+        File file = new File("MovieRecommendationSystem-CachedImplementation-main/data/movie_titles.txt");
+        Set<Movie> newestMovies = new TreeSet<>();
+
+        try {
+            Scanner inputStream = new Scanner(file);
+
+            while (inputStream.hasNextLine()) {
+                String line = inputStream.nextLine();
+                String[] lineContent = line.split(",");
+                newestMovies.add(new Movie(Integer.parseInt(lineContent[0]), lineContent[2], Integer.parseInt(lineContent[1])));
+            }
+        } catch (FileNotFoundException ex) {
+            throw new RuntimeException(ex);
+        }
+        System.out.println(newestMovies);
+        return (List<Movie>) newestMovies ;
+    }
+
+   public List<Movie> getNewestMovies(){
+        return searchNewestMovies();
+   }
 }
