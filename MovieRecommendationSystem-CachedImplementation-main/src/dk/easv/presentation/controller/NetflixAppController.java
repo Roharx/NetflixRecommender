@@ -7,6 +7,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -177,7 +178,12 @@ public class NetflixAppController implements Initializable {
         ObservableList<Movie> newestMovies = FXCollections.observableArrayList();
 
 
+
+
         return newestMovies;
+    }
+
+    public void btnSearchPressed(ActionEvent actionEvent) {
     }
 
 
