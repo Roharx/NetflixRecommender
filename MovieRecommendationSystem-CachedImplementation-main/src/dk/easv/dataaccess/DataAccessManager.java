@@ -128,23 +128,33 @@ public class DataAccessManager {
         return (List<Movie>) newestMovies;
     }
 
-    private List<Movie> searchNewestMovies() {
-        File file = new File("MovieRecommendationSystem-CachedImplementation-main/data/movie_titles.txt");
-        Set<Movie> newestMovies = new TreeSet<>();
+    public List<Movie> searchMovies(String query){
+
+        File input = new File("MovieRecommendationSystem-CachedImplementation-main/data/movie_titles.txt");
+        FileReader fileReader;
+        String SearchWords, str;
+        Scanner scanner = new Scanner(System.in);
+        SearchWords = scanner.nextLine();
+        List<Movie> searchResults = new ArrayList<>();
 
         try {
-            Scanner inputStream = new Scanner(file);
+            fileReader = new FileReader(input);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
 
-            while (inputStream.hasNextLine()) {
-                String line = inputStream.nextLine();
-                String[] lineContent = line.split(",");
-                newestMovies.add(new Movie(Integer.parseInt(lineContent[0]), lineContent[2], Integer.parseInt(lineContent[1])));
+            while ((str = bufferedReader.readLine()) != null) {
+                if (str.contains(SearchWords.toLowerCase())){
+                    String[] lineContent = str.split(",");
+                    searchResults.add(new Movie(Integer.parseInt(lineContent[0]),lineContent[2],Integer.parseInt(lineContent[1])));
+                }
+
             }
-        } catch (FileNotFoundException ex) {
-            throw new RuntimeException(ex);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-        System.out.println(newestMovies);
-        return (List<Movie>) newestMovies;
+
+        return searchResults;
     }
 
 }

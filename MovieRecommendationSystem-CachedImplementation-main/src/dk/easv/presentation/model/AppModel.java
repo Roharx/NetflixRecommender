@@ -108,5 +108,8 @@ public class AppModel {
     public String getMoviePicturePathByID(int id){
         return logic.getMoviePicturePathByID(id);
     }
-    public List<Movie> getNewestMovies(){ return logic.getNewestMovies();}
+    public ObservableList<Movie> getNewestMovies(){ return logic.getNewestMovies();}
+    public ObservableList<Movie> searchMovies(String query){
+        return logic.searchMovies(query);
+    }
 }

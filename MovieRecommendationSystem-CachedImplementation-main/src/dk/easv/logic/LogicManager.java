@@ -2,6 +2,8 @@ package dk.easv.logic;
 
 import dk.easv.dataaccess.DataAccessManager;
 import dk.easv.entities.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.sql.SQLException;
 import java.util.*;
@@ -20,16 +22,9 @@ public class LogicManager {
 
     // Gets all rated movies for one user and returns them sorted by avg. best by all users.
 
-    public List<Movie> searchMovies(String query) throws SQLException {
-        //List<Movie> movies = (List<Movie>) dataMgr.getAllMovies();
-        List<Movie> filtered = new ArrayList<>();
-
-        for (Movie m : dataMgr.getAllMovies().values()) {
-            if (("" + m.getTitle().toLowerCase()).contains(query.toLowerCase())) {
-                filtered.add(m);
-            }
-        }
-        return filtered;
+    public ObservableList<Movie> searchMovies(String query) {
+        ObservableList<Movie> searchResults;
+        return searchResults = FXCollections.observableArrayList(dataMgr.searchMovies(query));
     }
     public List<Movie> getAllMovies() throws SQLException {
         return (List<Movie>) dataMgr.getAllMovies();
@@ -137,9 +132,12 @@ public class LogicManager {
     public String getMoviePicturePathByID(int id){
         return dataMgr.getMoviePicturePathByID(id);
     }
-    public List<Movie> getNewestMovies() {
-        return dataMgr.getNewestMovies();
+    public ObservableList<Movie> getNewestMovies() {
+        ObservableList<Movie> newestMovies;
+
+        return newestMovies = FXCollections.observableArrayList(dataMgr.getNewestMovies());
     }
+
 
 
 

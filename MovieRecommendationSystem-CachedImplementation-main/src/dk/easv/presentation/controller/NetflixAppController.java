@@ -197,11 +197,14 @@ public class NetflixAppController implements Initializable {
     }
 
     public void searchMovies(KeyEvent keyEvent) {
+        appModel.searchMovies(txfSearch.getText());
     }
 
     public void getTopMoviesSeen(ActionEvent actionEvent) {
-
+        appModel.getObsTopMovieSeen();
     }
     public void getNewestMovies(ActionEvent actionEvent) {
+        ObservableList<Movie> newestMovies = appModel.getNewestMovies();
+
     }
 }
