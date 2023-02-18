@@ -137,4 +137,10 @@ public class LogicManager {
     public String getMoviePicturePathByID(int id){
         return dataMgr.getMoviePicturePathByID(id);
     }
+    public List<Movie> getNewestMovies() {
+        return dataMgr.getNewestMovies();
+    }
+
+
+
 }
