@@ -132,31 +132,6 @@ public class DataAccessManager {
         return searchNewestMovies();
     }
 
-  /*  public static void main(String[] args) {
-        // TODO Balint make nice :D (search in enter press)
-
-        File input = new File("MovieRecommendationSystem-CachedImplementation-main/data/movie_titles.txt");
-        FileReader fileReader = null;
-        String SearchWords, str;
-        Scanner scanner = new Scanner(System.in);
-        SearchWords = scanner.nextLine();
-        String line = "";
-
-        try {
-            fileReader = new FileReader(input);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-
-            while ((str = bufferedReader.readLine()) != null) {
-                if (str.contains(SearchWords.toLowerCase()))
-                    System.out.println(str + "\n");
-            }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }*/
-
-
 }
 
 
