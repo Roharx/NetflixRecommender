@@ -129,6 +129,17 @@ public class NetflixAppController implements Initializable {
 
 
     public void getNewestMovies(ActionEvent actionEvent) {
+        appModel.getNewestMovies();
+
+    }
+
+    public void getTopMoviesSeen(ActionEvent actionEvent) {
+        appModel.getObsTopMovieSeen();
+
+    }
+
+    public void logOut(ActionEvent actionEvent) {
+
     }
 }
 

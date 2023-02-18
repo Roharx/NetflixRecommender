@@ -4,9 +4,7 @@ import dk.easv.entities.Movie;
 import dk.easv.entities.Rating;
 import dk.easv.entities.User;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
@@ -30,15 +28,18 @@ public class DataAccessManager {
         return movies;
     }
 
-    public List<Rating> getAllRatings(){
+    public List<Rating> getAllRatings() {
         return ratings;
     }
 
 
-    public void updateCacheFromDisk(){
+    public void updateCacheFromDisk() {
         loadAllRatings();
     }
-    public String getMoviePicturePathByID(int id){return searchMoviePicturePathByID(id);}
+
+    public String getMoviePicturePathByID(int id) {
+        return searchMoviePicturePathByID(id);
+    }
 
 
     private void loadAllMovies() {
@@ -89,14 +90,14 @@ public class DataAccessManager {
         }
     }
 
-    private String searchMoviePicturePathByID(int id){
+    private String searchMoviePicturePathByID(int id) {
         String picturePath = "";
 
         try {
             List<String> moviesAndPictures = Files.readAllLines(Path.of("MovieRecommendationSystem-CachedImplementation-main/data/movies_pictures.txt"));
             for (String line : moviesAndPictures) {
                 String[] lineContent = line.split(",");
-                if(id == Integer.parseInt(lineContent[0]))
+                if (id == Integer.parseInt(lineContent[0]))
                     picturePath = lineContent[1];
             }
 
@@ -108,7 +109,7 @@ public class DataAccessManager {
         return picturePath;
     }
 
-    private List<Movie> searchNewestMovies(){
+    private List<Movie> searchNewestMovies() {
         File file = new File("MovieRecommendationSystem-CachedImplementation-main/data/movie_titles.txt");
         Set<Movie> newestMovies = new TreeSet<>();
 
@@ -124,10 +125,38 @@ public class DataAccessManager {
             throw new RuntimeException(ex);
         }
         System.out.println(newestMovies);
-        return (List<Movie>) newestMovies ;
+        return null;
     }
 
-   public List<Movie> getNewestMovies(){
+    public List<Movie> getNewestMovies() {
         return searchNewestMovies();
-   }
+    }
+
+  /*  public static void main(String[] args) {
+        // TODO Balint make nice :D (search in enter press)
+
+        File input = new File("MovieRecommendationSystem-CachedImplementation-main/data/movie_titles.txt");
+        FileReader fileReader = null;
+        String SearchWords, str;
+        Scanner scanner = new Scanner(System.in);
+        SearchWords = scanner.nextLine();
+        String line = "";
+
+        try {
+            fileReader = new FileReader(input);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+            while ((str = bufferedReader.readLine()) != null) {
+                if (str.contains(SearchWords.toLowerCase()))
+                    System.out.println(str + "\n");
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }*/
+
+
 }
+
+
