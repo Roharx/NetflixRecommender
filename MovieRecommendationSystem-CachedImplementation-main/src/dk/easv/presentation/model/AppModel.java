@@ -108,4 +108,5 @@ public class AppModel {
     public String getMoviePicturePathByID(int id){
         return logic.getMoviePicturePathByID(id);
     }
+    public List<Movie> getNewestMovies(){ return logic.getNewestMovies();}
 }

@@ -3,7 +3,7 @@ package dk.easv.entities;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Movie {
+public class Movie implements Comparable <Movie>{
     private int id;
     private String title;
     private int year;
@@ -58,6 +58,12 @@ public class Movie {
     public String toString() {
         return  title + ", " + year +
                 ", ratings=" + ratings.size() +
-                ", avg="+ Math.round(getAverageRating()*10)/10.0;
+                ", avg="+ Math.round(getAverageRating()*10)/10.0+"\n";
+    }
+
+    @Override
+    public int compareTo(Movie movie) {
+        int yearMovie = movie.getYear() - year;
+        return yearMovie;
     }
 }

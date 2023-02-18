@@ -7,10 +7,7 @@ import dk.easv.entities.User;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class DataAccessManager {
     private HashMap<Integer, User> users = new HashMap<>();
@@ -31,15 +28,18 @@ public class DataAccessManager {
         return movies;
     }
 
-    public List<Rating> getAllRatings(){
+    public List<Rating> getAllRatings() {
         return ratings;
     }
 
 
-    public void updateCacheFromDisk(){
+    public void updateCacheFromDisk() {
         loadAllRatings();
     }
-    public String getMoviePicturePathByID(int id){return searchMoviePicturePathByID(id);}
+
+    public String getMoviePicturePathByID(int id) {
+        return searchMoviePicturePathByID(id);
+    }
 
     private void loadAllMovies() {
         try {
@@ -89,14 +89,14 @@ public class DataAccessManager {
         }
     }
 
-    private String searchMoviePicturePathByID(int id){
+    private String searchMoviePicturePathByID(int id) {
         String picturePath = "";
 
         try {
             List<String> moviesAndPictures = Files.readAllLines(Path.of("MovieRecommendationSystem-CachedImplementation-main/data/movies_pictures.txt"));
             for (String line : moviesAndPictures) {
                 String[] lineContent = line.split(",");
-                if(id == Integer.parseInt(lineContent[0]))
+                if (id == Integer.parseInt(lineContent[0]))
                     picturePath = lineContent[1];
             }
 
@@ -107,29 +107,44 @@ public class DataAccessManager {
 
         return picturePath;
     }
-    private List<Movie> getNewestMovies(){
-        int maxYear = maxYear();
-        List<Movie> newestMovies = new ArrayList<>();
+
+    public List<Movie> getNewestMovies() {
+
+        File file = new File("MovieRecommendationSystem-CachedImplementation-main/data/movie_titles.txt");
+        Set<Movie> newestMovies = new TreeSet<>();
+
         try {
-            List<String> allMovies = Files.readAllLines(Path.of("MovieRecommendationSystem-CachedImplementation-main/data/movie_titles.txt"));
-            for (String line : allMovies) {
+            Scanner inputStream = new Scanner(file);
+
+            while (inputStream.hasNextLine()) {
+                String line = inputStream.nextLine();
                 String[] lineContent = line.split(",");
-                if(Integer.parseInt(lineContent[1]) == maxYear)
-                    newestMovies.add(new Movie(Integer.parseInt(lineContent[0]), lineContent[2], Integer.parseInt(lineContent[1])));
+                newestMovies.add(new Movie(Integer.parseInt(lineContent[0]), lineContent[2], Integer.parseInt(lineContent[1])));
             }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (FileNotFoundException ex) {
+            throw new RuntimeException(ex);
         }
-
-        return newestMovies;
+        System.out.println(newestMovies);
+        return (List<Movie>) newestMovies;
     }
-    private int maxYear(){
-        int currentMaxYear = 0;
 
+    private List<Movie> searchNewestMovies() {
+        File file = new File("MovieRecommendationSystem-CachedImplementation-main/data/movie_titles.txt");
+        Set<Movie> newestMovies = new TreeSet<>();
 
+        try {
+            Scanner inputStream = new Scanner(file);
 
-
-        return currentMaxYear;
+            while (inputStream.hasNextLine()) {
+                String line = inputStream.nextLine();
+                String[] lineContent = line.split(",");
+                newestMovies.add(new Movie(Integer.parseInt(lineContent[0]), lineContent[2], Integer.parseInt(lineContent[1])));
+            }
+        } catch (FileNotFoundException ex) {
+            throw new RuntimeException(ex);
+        }
+        System.out.println(newestMovies);
+        return (List<Movie>) newestMovies;
     }
 
 }
