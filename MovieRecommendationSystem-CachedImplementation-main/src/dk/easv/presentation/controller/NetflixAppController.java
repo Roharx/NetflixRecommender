@@ -179,6 +179,7 @@ public class NetflixAppController implements Initializable {
 
 
 
+
         return newestMovies;
     }
 
