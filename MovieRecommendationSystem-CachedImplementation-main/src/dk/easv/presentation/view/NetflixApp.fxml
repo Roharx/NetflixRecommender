@@ -31,7 +31,7 @@
                <font>
                   <Font size="21.0" />
                </font></Button>
-            <Button fx:id="btnHistory" layoutX="795.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="100.0" style="-fx-background-color: transparent;" styleClass="menu-element" text="History" textFill="BLACK" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="0.0">
+            <Button fx:id="btnHistory" layoutX="795.0" mnemonicParsing="false" onAction="#getTopMoviesSeen" prefHeight="70.0" prefWidth="100.0" style="-fx-background-color: transparent;" styleClass="menu-element" text="History" textFill="BLACK" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="0.0">
                <font>
                   <Font size="21.0" />
                </font></Button>
