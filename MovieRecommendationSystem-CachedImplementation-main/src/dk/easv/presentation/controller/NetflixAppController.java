@@ -16,8 +16,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -176,7 +178,7 @@ public class NetflixAppController implements Initializable {
 
     private ObservableList<Movie> getNewestMovies(){
         ObservableList<Movie> newestMovies = FXCollections.observableArrayList();
-
+        //appModel.getNewestMovies();
 
 
 
@@ -187,12 +189,17 @@ public class NetflixAppController implements Initializable {
     }
 
 
-   /* public void logOut(ActionEvent actionEvent) {
 
-        Stage stage  = (Stage) scenePane.getScene().getWindow();
+    public void logOut(ActionEvent actionEvent) {
+        Stage stage  = (Stage) anchorControlFrame.getScene().getWindow();
         stage.close();
 
-    }*/
+    }
 
+    public void searchMovies(KeyEvent keyEvent) {
+    }
 
+    public void getTopMoviesSeen(ActionEvent actionEvent) {
+
+    }
 }
