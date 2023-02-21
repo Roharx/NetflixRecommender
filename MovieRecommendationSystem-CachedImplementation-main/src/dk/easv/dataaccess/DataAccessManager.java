@@ -125,7 +125,7 @@ public class DataAccessManager {
             throw new RuntimeException(ex);
         }
         System.out.println(newestMovies);
-        return null;
+        return (List<Movie>) newestMovies;
     }
 
     public List<Movie> searchMovies(String query){
