@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -26,6 +27,8 @@ import java.util.ResourceBundle;
 
 public class NetflixAppController implements Initializable {
     @FXML
+    private MenuItem menuItemLogOut;
+    @FXML
     private AnchorPane anchorControlFrame,
             anchorDisplay;
     @FXML
@@ -34,7 +37,8 @@ public class NetflixAppController implements Initializable {
             btnNewestMovie,
             btnHistory,
             btnMyListMovie,
-            btnMenu;
+            btnMenu,
+            btnLogOut;
     @FXML
     private TextField txfSearch;
     @FXML
@@ -77,7 +81,7 @@ public class NetflixAppController implements Initializable {
 
         return amountMoviesToBeSeen;
     }
-
+//   display home screen 2  generater label,and 8 generated movie
     private void displayHomeContent(AnchorPane contentContainer, String topLabel, String bottomLabel) {
         clearContent(contentContainer);
 
@@ -105,6 +109,8 @@ public class NetflixAppController implements Initializable {
         contentContainer.getChildren().clear();
     }
 
+
+    // display movie ikons in 2 row
     private void displayMovieIcons(AnchorPane contentContainer, int amount, int row, boolean hasLabel, ObservableList<Movie> moviesToDisplay) {
         String url;
         double xSpacing;
