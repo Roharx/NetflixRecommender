@@ -22,6 +22,8 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
 public class NetflixAppController implements Initializable {
@@ -122,12 +124,16 @@ public class NetflixAppController implements Initializable {
             Label movieTitle = new Label();
             ImageView moviePicture = new ImageView();
 
-            url = appModel.getMoviePicturePathByID(moviesToDisplay.get(i).getId());
+
+            url = Paths.get(appModel.getMoviePicturePathByID(moviesToDisplay.get(i).getId())).toUri().toString();
+            String defaultImage = Paths.get("MovieRecommendationSystem-CachedImplementation-main/data/images/defaultPicture.png").toUri().toString();
+
 
             if (url != "")
                 try {
                     moviePicture.setImage(new Image(url, displayElementWidth, displayElementHeight - 10, true, false));
                 } catch (Exception e) {
+                    moviePicture.setImage(new Image(defaultImage, displayElementWidth, displayElementHeight - 10, true, false));
                     //TODO if have enough time, display text for wrong path for picture otherwise leave empty
                 }
 
