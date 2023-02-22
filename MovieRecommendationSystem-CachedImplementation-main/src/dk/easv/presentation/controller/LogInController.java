@@ -19,11 +19,11 @@ import java.util.ResourceBundle;
 
 public class LogInController implements Initializable {
     @FXML
-    private Button btnRecover,
-            btnLogin,
-            btnRegisterNewUser;
-    @FXML private PasswordField passwordField;
-    @FXML private TextField userId;
+    private Button btnLogin;
+    @FXML
+    private PasswordField passwordField;
+    @FXML
+    private TextField userId;
     private AppModel model;
     private Parent root;
 
@@ -53,15 +53,8 @@ public class LogInController implements Initializable {
         btnLogin.setText("Login");
         btnLogin.setDisable(false);
 
-        primaryStage.setWidth(1250);
+        primaryStage.setMaxWidth(1250);
+        primaryStage.setMinWidth(1250);
         primaryStage.show();
-    }
-
-    private void MinimizeWindow(){
-        Stage stage = (Stage) btnLogin.getScene().getWindow();
-        stage.setIconified(true);
-    }
-
-    public void registerNewUser(ActionEvent actionEvent) {
     }
 }

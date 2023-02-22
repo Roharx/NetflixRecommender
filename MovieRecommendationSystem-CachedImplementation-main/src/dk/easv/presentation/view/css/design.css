@@ -13,6 +13,11 @@
     -fx-text-fill: white;
     -fx-font-size: 30px;
     -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+.display-text:hover{
+    -fx-text-fill: red;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 2, 2);
 }
 .button{
     -fx-background-radius: 5px;

@@ -6,6 +6,7 @@ import dk.easv.presentation.model.AppModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -40,7 +41,6 @@ public class NetflixAppController implements Initializable {
             btnSearch,
             btnNewestMovie,
             btnHistory,
-            btnMyListMovie,
             btnMenu;
     @FXML
     private TextField txfSearch;
@@ -68,8 +68,9 @@ public class NetflixAppController implements Initializable {
         for (int i = 0; i < movieAmount; i++) {
             amountMoviesToBeSeen.add(allMoviesToBeSeen.get(i));
         }
-
         return amountMoviesToBeSeen;
+
+
     }
 
     private ObservableList<Movie> getTopMoviesSeen(int movieAmount) {
@@ -98,8 +99,16 @@ public class NetflixAppController implements Initializable {
         lblTop.setText(topLabel);
         lblBottom.setText(bottomLabel);
 
+        lblTop.setOnMouseClicked(e -> {
+            addScrollPane(contentContainer, appModel.getObsTopMovieSeen());
+        });
+        lblBottom.setOnMouseClicked(e -> {
+            addScrollPane(contentContainer, appModel.getObsTopMovieNotSeen());
+        });
+
         lblTop.getStyleClass().add("display-text");
         lblBottom.getStyleClass().add("display-text");
+
 
         contentContainer.getChildren().add(lblTop);
         displayMovieIcons(contentContainer, 4, 1, true, watchAgain);
@@ -180,7 +189,7 @@ public class NetflixAppController implements Initializable {
 
             });
             contentContainer.getChildren().add(displayElement);
-            contentContainer.setPadding(new Insets(20,20,30,20));
+            contentContainer.setPadding(new Insets(20, 20, 30, 20));
         }
 
     }
@@ -280,15 +289,15 @@ public class NetflixAppController implements Initializable {
         int moviesToDisplayAmount = displayMovies.size();
 
         scrollPane.setOnScroll(e -> {
-            if (displayMovieAmount < moviesToDisplayAmount)
-                if (scrollPane.getVvalue() == 1.0) {
-                    btnShowMore.setDisable(false);
-                    btnShowMore.setVisible(true);
-                    scrollPane.setPrefHeight(anchorPane.getHeight() - 60);
-                } else {
-                    btnShowMore.setDisable(true);
-                    btnShowMore.setVisible(false);
-                }
+
+            if (scrollPane.getVvalue() >= 1.0 && displayMovieAmount < moviesToDisplayAmount) {
+                btnShowMore.setDisable(false);
+                btnShowMore.setVisible(true);
+                scrollPane.setPrefHeight(anchorPane.getHeight() - 60);
+            } else {
+                btnShowMore.setDisable(true);
+                btnShowMore.setVisible(false);
+            }
 
         });
 
