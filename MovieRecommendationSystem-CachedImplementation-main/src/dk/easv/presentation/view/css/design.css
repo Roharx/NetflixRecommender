@@ -68,6 +68,24 @@
     -fx-background-color: #262626;
     -fx-background-radius: 5px;
 }
+.context-menu-item{
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+}
+.context-menu-item:focused{
+    -fx-background-color: transparent;
+    -fx-font-weight: bold;
+}
+.context-menu-item:hover{
+    -fx-cursor: hand;
+}
+#context-menu{
+    -fx-background-color: #262626;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-border-color: #535353;
+}
 
 #accept-button {
     -fx-background-color: #8FBCBB;

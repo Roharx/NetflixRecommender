@@ -3,8 +3,6 @@ package dk.easv.presentation.controller;
 import dk.easv.entities.Movie;
 import dk.easv.entities.User;
 import dk.easv.presentation.model.AppModel;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -28,7 +26,7 @@ import java.util.ResourceBundle;
 
 public class NetflixAppController implements Initializable {
     @FXML
-    public ContextMenu comUserMenu;
+    public ContextMenu ctmUserMenu;
     @FXML
     private AnchorPane anchorControlFrame,
             anchorDisplay;
@@ -151,6 +149,9 @@ public class NetflixAppController implements Initializable {
             displayElement.setOnMouseExited(e -> {
                 displayElement.setViewOrder(0);
             });
+            displayElement.setOnMouseClicked(e ->{
+                //on click, play movie or something
+            });
 
             contentContainer.getChildren().add(displayElement);
         }
@@ -201,11 +202,15 @@ public class NetflixAppController implements Initializable {
     }
 
     public void userMenuClicked(MouseEvent mouseEvent) {
-        comUserMenu.show(anchorControlFrame, Side.LEFT, btnMenu.getLayoutX() + 15, btnMenu.getLayoutY() + 35);
+        ctmUserMenu.show(anchorControlFrame, Side.LEFT, btnMenu.getLayoutX(), btnMenu.getLayoutY() + 40);
     }
 
     public void btnHomePressed(ActionEvent actionEvent) {
         clearContent(anchorDisplay);
         displayHomeContent(anchorDisplay, "Watch Again...", "Trending");
+    }
+
+    public void displayAllMovies(ActionEvent actionEvent) {
+
     }
 }
