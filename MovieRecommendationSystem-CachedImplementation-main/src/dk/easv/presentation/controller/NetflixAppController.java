@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.scene.control.*;
@@ -110,6 +111,15 @@ public class NetflixAppController implements Initializable {
         contentContainer.getChildren().clear();
     }
 
+    /**
+     * Generates a row of movie icons, calculates the distance needed based on a preset.
+     *
+     * @param contentContainer AnchorPane where the icons should be displayed.
+     * @param amount           The amount of icons that needs to be displayed in the row.
+     * @param row              The row's number it needs to generate. (e.g.: 1 for the first row)
+     * @param hasLabel         True if the display has label, it leaves extra vertical spacing for the icons.
+     * @param moviesToDisplay  The movies that need the icons to be generated for.
+     */
     private void displayMovieIcons(AnchorPane contentContainer, int amount, int row, boolean hasLabel, ObservableList<Movie> moviesToDisplay) {
         String url;
         double xSpacing;
@@ -176,7 +186,13 @@ public class NetflixAppController implements Initializable {
 
     }
 
-    private void displayMoviesOnlyWithoutConstraints(ScrollPane scrollPane, ObservableList<Movie> movies) {
+    /**
+     * Displays movies in bulk on a scroll pane, without size constraints
+     *
+     * @param scrollPane The scrollPane that needs to contain the movies.
+     * @param movies     The movies that need to be displayed inside the ScrollPane.
+     */
+    private void displayManyMovies(ScrollPane scrollPane, ObservableList<Movie> movies) {
 
         int maxRow = (int) ((movies.size() / 3) + 0.9);
         ObservableList<Movie> rowContent = FXCollections.observableArrayList();
@@ -196,34 +212,14 @@ public class NetflixAppController implements Initializable {
 
     }
 
-    private void displayMoviesOnly(AnchorPane contentContainer, ObservableList<Movie> movies) {
-        if (movies != null) {
-            int maxRow = (int) ((movies.size() / 3) + 0.9) > 3 ? 3 : (int) ((movies.size() / 3) + 0.9);
-
-            ObservableList<Movie> rowContent = FXCollections.observableArrayList();
-
-            clearContent(contentContainer);
-
-            for (int i = 0; i < maxRow; i++) {
-                for (int j = i * 4; j < i * 4 + 4; j++) {
-                    if (j < movies.size())
-                        rowContent.add(movies.get(j));
-
-                }
-                displayMovieIcons(contentContainer, rowContent.size(), i, false, rowContent);
-                rowContent.clear();
-            }
-        }
-    }
-
     public void btnSearchPressed(ActionEvent actionEvent) {
         displayMovieAmount = 40;
-        displayMoviesOnly(anchorDisplay, appModel.search(txfSearch.getText()));
+        addScrollPane(anchorDisplay, appModel.search(txfSearch.getText()));
     }
 
     public void searchMovies(KeyEvent keyEvent) {
         if (keyEvent.getCode() == KeyCode.ENTER) {
-            displayMoviesOnly(anchorDisplay, appModel.search(txfSearch.getText()));
+            addScrollPane(anchorDisplay, appModel.search(txfSearch.getText()));
         }
     }
 
@@ -264,45 +260,49 @@ public class NetflixAppController implements Initializable {
         addScrollPane(anchorDisplay, allMovies);
     }
 
-    private void addScrollPane(AnchorPane anchorPane, ObservableList<Movie> allMovies) {
-        clearContent(anchorDisplay);
+    private void addScrollPane(AnchorPane anchorPane, ObservableList<Movie> displayMovies) {
+        clearContent(anchorPane);
         ScrollPane scrollPane = new ScrollPane();
         Button btnShowMore = new Button();
 
         btnShowMore.setText("Show More");
 
-        scrollPane.setPrefWidth(anchorDisplay.getWidth());
-        scrollPane.setPrefHeight(anchorDisplay.getHeight() - 70);
+        scrollPane.setPrefWidth(anchorPane.getWidth());
+        scrollPane.setPrefHeight(anchorPane.getHeight());
         btnShowMore.getStyleClass().add("show-more-button");
-        AnchorPane.setTopAnchor(btnShowMore, anchorDisplay.getHeight() - 70);
-        AnchorPane.setLeftAnchor(btnShowMore, (anchorDisplay.getWidth() / 2) - 100);
+        AnchorPane.setTopAnchor(btnShowMore, anchorPane.getHeight() - 70);
+        AnchorPane.setLeftAnchor(btnShowMore, (anchorPane.getWidth() / 2) - 100);
 
-        anchorDisplay.getChildren().add(scrollPane);
-        anchorDisplay.getChildren().add(btnShowMore);
+        anchorPane.getChildren().add(scrollPane);
+        anchorPane.getChildren().add(btnShowMore);
         btnShowMore.setDisable(true);
         btnShowMore.setVisible(false);
 
+        int moviesToDisplayAmount = displayMovies.size();
+
         scrollPane.setOnScroll(e -> {
-            if (scrollPane.getVvalue() == 1.0) {
-                btnShowMore.setDisable(false);
-                btnShowMore.setVisible(true);
-            } else {
-                btnShowMore.setDisable(true);
-                btnShowMore.setVisible(false);
-            }
+            if (displayMovieAmount < moviesToDisplayAmount)
+                if (scrollPane.getVvalue() == 1.0) {
+                    btnShowMore.setDisable(false);
+                    btnShowMore.setVisible(true);
+                    scrollPane.setPrefHeight(anchorPane.getHeight() - 60);
+                } else {
+                    btnShowMore.setDisable(true);
+                    btnShowMore.setVisible(false);
+                }
 
         });
 
         btnShowMore.setOnAction(event -> {
-            displayMovieAmount = displayMovieAmount + 40 > allMovies.size() ? allMovies.size() : displayMovieAmount + 40;
-            displayAllMoviesScrollPane();
+            displayMovieAmount = displayMovieAmount + 40 > displayMovies.size() ? displayMovies.size() : displayMovieAmount + 40;
+            addScrollPane(anchorPane, displayMovies);
         });
 
         ObservableList<Movie> test = FXCollections.observableArrayList();
         for (int i = 0; i < displayMovieAmount; i++)
-            test.add(allMovies.get(i));
+            test.add(displayMovies.get(i));
 
-        displayMoviesOnlyWithoutConstraints(scrollPane, test);
+        displayManyMovies(scrollPane, test);
 
     }
 }
