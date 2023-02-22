@@ -9,7 +9,7 @@ import javafx.scene.control.ListView;
 import java.net.URL;
 import java.util.*;
 
-public class AppController implements Initializable {//TODO irrelevant class, to be deleted
+public class AppController implements Initializable {
     @FXML
     private ListView<User> lvUsers;
     @FXML

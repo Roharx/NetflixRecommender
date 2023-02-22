@@ -5,7 +5,6 @@ import dk.easv.entities.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.sql.SQLException;
 import java.util.*;
 
 public class LogicManager {
@@ -128,18 +127,9 @@ public class LogicManager {
         return dataMgr.getMoviePicturePathByID(id);
     }
     public ObservableList<Movie> getNewestMovies() {
-        ObservableList<Movie> newestMovies;
-
-        return newestMovies = FXCollections.observableArrayList(dataMgr.getNewestMovies());
+        return FXCollections.observableArrayList(dataMgr.getNewestMovies());
     }
 
-    public ObservableList<Movie> getAllMovies(){
-        ObservableList<Movie> allMovies = FXCollections.observableArrayList();
-        for (Movie m : dataMgr.getAllMovies().values()) {
-            allMovies.add(m);
-        }
-        return allMovies;
-    }
 
 
 }

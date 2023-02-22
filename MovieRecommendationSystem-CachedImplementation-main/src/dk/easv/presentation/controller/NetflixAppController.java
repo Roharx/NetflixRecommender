@@ -22,9 +22,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ResourceBundle;
@@ -32,8 +29,6 @@ import java.util.ResourceBundle;
 public class NetflixAppController implements Initializable {
     @FXML
     public ContextMenu comUserMenu;
-    @FXML
-    public ScrollPane scpDisplay;
     @FXML
     private AnchorPane anchorControlFrame,
             anchorDisplay;
@@ -46,35 +41,18 @@ public class NetflixAppController implements Initializable {
             btnMenu;
     @FXML
     private TextField txfSearch;
-    @FXML
-    private ImageView imageViewUser;
-
 
     private AppModel appModel;
     private User currentUser;
     private int displayElementWidth = 270, displayElementHeight = 150;
     private int paddingWidth = 20, paddingHeight = 20;
-    private ObservableList<Movie> allMovies;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         appModel = new AppModel();
         currentUser = appModel.getLoggedInUser();
         appModel.loadData(currentUser);
-        scpDisplay = new ScrollPane();
         displayHomeContent(anchorDisplay, "Watch Again...", "Trending");
-
-        txfSearch.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                ObservableList<Movie> searchResults = FXCollections.observableArrayList();
-
-                for (Movie m : searchResults) {
-                    System.out.println(m.getTitle());
-                }
-            }
-        });
-
     }
 
 

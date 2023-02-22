@@ -2,13 +2,11 @@ package dk.easv.presentation.model;
 
 import dk.easv.entities.*;
 import dk.easv.logic.LogicManager;
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.sql.SQLException;
-import java.util.List;
+
 
 public class AppModel {
 
@@ -31,7 +29,6 @@ public class AppModel {
         return loggedInUser;
     }
 
-    private ObservableList<Movie> movies ;
     public ObservableList<Movie> search(String query){
         return logic.searchMovies(query);
     }
@@ -78,15 +75,15 @@ public class AppModel {
 
     public User getObsLoggedInUser() {
         return obsLoggedInUser.get();
-    }//TODO irrelevant method, to be deleted
+    }
 
     public SimpleObjectProperty<User> obsLoggedInUserProperty() {
         return obsLoggedInUser;
-    }//TODO irrelevant method, to be deleted
+    }
 
     public void setObsLoggedInUser(User obsLoggedInUser) {
         this.obsLoggedInUser.set(obsLoggedInUser);
-    }//TODO irrelevant method, to be deleted
+    }
 
     public boolean loginUserFromUsername(String userName) {
         User u = logic.getUser(userName);
@@ -104,10 +101,4 @@ public class AppModel {
         return logic.getMoviePicturePathByID(id);
     }
     public ObservableList<Movie> getNewestMovies(){ return logic.getNewestMovies();}
-    public ObservableList<Movie> searchMovies(String query){
-        return logic.searchMovies(query);
-    }
-    public ObservableList<Movie> getAllMovies(){
-        return logic.getAllMovies();
-    }
 }
