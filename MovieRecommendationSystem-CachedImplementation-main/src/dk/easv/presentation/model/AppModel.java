@@ -32,13 +32,8 @@ public class AppModel {
     }
 
     private ObservableList<Movie> movies ;
-    private ObservableList<Movie> getMovies() throws SQLException {
-        List<Movie> m = logic.getAllMovies();
-        return movies = FXCollections.observableArrayList(m);
-    }
-    public void search(String query) throws SQLException {
-        movies.clear();
-        movies.addAll(logic.searchMovies(query));
+    public ObservableList<Movie> search(String query){
+        return logic.searchMovies(query);
     }
 
 
@@ -111,5 +106,8 @@ public class AppModel {
     public ObservableList<Movie> getNewestMovies(){ return logic.getNewestMovies();}
     public ObservableList<Movie> searchMovies(String query){
         return logic.searchMovies(query);
+    }
+    public ObservableList<Movie> getAllMovies(){
+        return logic.getAllMovies();
     }
 }

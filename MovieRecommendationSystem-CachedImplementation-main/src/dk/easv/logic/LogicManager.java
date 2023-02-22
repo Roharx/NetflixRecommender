@@ -23,13 +23,8 @@ public class LogicManager {
     // Gets all rated movies for one user and returns them sorted by avg. best by all users.
 
     public ObservableList<Movie> searchMovies(String query) {
-        ObservableList<Movie> searchResults;
-        return searchResults = FXCollections.observableArrayList(dataMgr.searchMovies(query));
+        return FXCollections.observableArrayList(dataMgr.searchMovies(query));
     }
-    public List<Movie> getAllMovies() throws SQLException {
-        return (List<Movie>) dataMgr.getAllMovies();
-    }
-
     public List<Movie> getTopAverageRatedMovies(User u) {
         List<Movie> top = new ArrayList<>();
 
@@ -138,7 +133,13 @@ public class LogicManager {
         return newestMovies = FXCollections.observableArrayList(dataMgr.getNewestMovies());
     }
 
-
+    public ObservableList<Movie> getAllMovies(){
+        ObservableList<Movie> allMovies = FXCollections.observableArrayList();
+        for (Movie m : dataMgr.getAllMovies().values()) {
+            allMovies.add(m);
+        }
+        return allMovies;
+    }
 
 
 }

@@ -11,22 +11,29 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.geometry.Side;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
 public class NetflixAppController implements Initializable {
+    @FXML
+    public ContextMenu comUserMenu;
+    @FXML
+    public ScrollPane scpDisplay;
     @FXML
     private AnchorPane anchorControlFrame,
             anchorDisplay;
@@ -54,7 +61,8 @@ public class NetflixAppController implements Initializable {
         appModel = new AppModel();
         currentUser = appModel.getLoggedInUser();
         appModel.loadData(currentUser);
-        displayHomeContent(anchorDisplay,"Recommendations","Trending");
+        scpDisplay = new ScrollPane();
+        displayHomeContent(anchorDisplay, "Watch Again...", "Trending");
 
         txfSearch.textProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -66,11 +74,23 @@ public class NetflixAppController implements Initializable {
                 }
             }
         });
+
     }
 
 
     private ObservableList<Movie> getMovieRecommendations(int movieAmount) {
         ObservableList<Movie> allMoviesToBeSeen = appModel.getObsTopMovieNotSeen();
+        ObservableList<Movie> amountMoviesToBeSeen = FXCollections.observableArrayList();
+
+        for (int i = 0; i < movieAmount; i++) {
+            amountMoviesToBeSeen.add(allMoviesToBeSeen.get(i));
+        }
+
+        return amountMoviesToBeSeen;
+    }
+
+    private ObservableList<Movie> getTopMoviesSeen(int movieAmount) {
+        ObservableList<Movie> allMoviesToBeSeen = appModel.getObsTopMovieSeen();
         ObservableList<Movie> amountMoviesToBeSeen = FXCollections.observableArrayList();
 
         for (int i = 0; i < movieAmount; i++) {
@@ -86,6 +106,7 @@ public class NetflixAppController implements Initializable {
         Label lblTop = new Label();
         Label lblBottom = new Label();
         ObservableList<Movie> recommendations = getMovieRecommendations(4);
+        ObservableList<Movie> watchAgain = getTopMoviesSeen(4);
 
         AnchorPane.setLeftAnchor(lblTop, 5.0);
         AnchorPane.setTopAnchor(lblBottom, 225.0);
@@ -98,7 +119,7 @@ public class NetflixAppController implements Initializable {
         lblBottom.getStyleClass().add("display-text");
 
         contentContainer.getChildren().add(lblTop);
-        displayMovieIcons(contentContainer, 4, 1, true, recommendations);
+        displayMovieIcons(contentContainer, 4, 1, true, watchAgain);
         contentContainer.getChildren().add(lblBottom);
         displayMovieIcons(contentContainer, 4, 2, true, recommendations);
     }
@@ -122,22 +143,17 @@ public class NetflixAppController implements Initializable {
 
             StackPane displayElement = new StackPane();
             Label movieTitle = new Label();
+            Label rating = new Label();
             ImageView moviePicture = new ImageView();
 
 
             url = Paths.get(appModel.getMoviePicturePathByID(moviesToDisplay.get(i).getId())).toUri().toString();
-            String defaultImage = Paths.get("MovieRecommendationSystem-CachedImplementation-main/data/images/defaultPicture.png").toUri().toString();
-
 
             if (url != "")
-                try {
-                    moviePicture.setImage(new Image(url, displayElementWidth, displayElementHeight - 10, true, false));
-                } catch (Exception e) {
-                    moviePicture.setImage(new Image(defaultImage, displayElementWidth, displayElementHeight - 10, true, false));
-                    //TODO if have enough time, display text for wrong path for picture otherwise leave empty
-                }
+                moviePicture.setImage(new Image(url, displayElementWidth, displayElementHeight - 10, true, false));
 
-            movieTitle.setText(moviesToDisplay.get(i).getTitle());
+            rating.setText("");
+            movieTitle.setText(moviesToDisplay.get(i).getTitle() + ", " + moviesToDisplay.get(i).getYear());
             movieTitle.getStyleClass().add("movie-title");
             moviePicture.getStyleClass().add("movie-picture");
 
@@ -163,54 +179,55 @@ public class NetflixAppController implements Initializable {
 
     }
 
-    private void displayMoviesOnly(AnchorPane contentContainer, ObservableList<Movie> searchResults) {
-        if (searchResults != null){
-            int maxRow = (int) ((searchResults.size() / 4) + 0.9);
-            maxRow = maxRow > 4 ? 4 : maxRow;
-            int amount = searchResults.size() > 12 ? 12 : searchResults.size();
+    private void displayMoviesOnly(AnchorPane contentContainer, ObservableList<Movie> movies) {
+        if (movies != null) {
+            int maxRow = (int) ((movies.size() / 3) + 0.9) > 3 ? 3 : (int) ((movies.size() / 3) + 0.9);
+
             ObservableList<Movie> rowContent = FXCollections.observableArrayList();
 
             clearContent(contentContainer);
 
             for (int i = 0; i < maxRow; i++) {
-                for (int j = i; j < i + 4; j++) {
-                    rowContent.add(searchResults.get(j));
+                for (int j = i * 4; j < i * 4 + 4; j++) {
+                    rowContent.add(movies.get(j));
                 }
                 displayMovieIcons(contentContainer, rowContent.size(), i, false, rowContent);
                 rowContent.clear();
             }
         }
     }
-
-    private ObservableList<Movie> getNewestMovies(){
-        ObservableList<Movie> newestMovies = FXCollections.observableArrayList();
-        //appModel.getNewestMovies();
-
-
-
-        return newestMovies;
-    }
-
     public void btnSearchPressed(ActionEvent actionEvent) {
-    }
-
-
-
-    public void logOut(ActionEvent actionEvent) {
-        Stage stage  = (Stage) anchorControlFrame.getScene().getWindow();
-        stage.close();
-
+        displayMoviesOnly(anchorDisplay, appModel.search(txfSearch.getText()));
     }
 
     public void searchMovies(KeyEvent keyEvent) {
-        appModel.searchMovies(txfSearch.getText());
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            displayMoviesOnly(anchorDisplay, appModel.search(txfSearch.getText()));
+        }
+    }
+
+    public void logOut(ActionEvent actionEvent) {
+        Stage stage = (Stage) anchorControlFrame.getScene().getWindow();
+        stage.close();
     }
 
     public void getTopMoviesSeen(ActionEvent actionEvent) {
-        appModel.getObsTopMovieSeen();
+        ObservableList<Movie> moviesSeen = appModel.getObsTopMovieSeen();
+        displayMoviesOnly(anchorDisplay, moviesSeen);
     }
+
     public void getNewestMovies(ActionEvent actionEvent) {
         ObservableList<Movie> newestMovies = appModel.getNewestMovies();
+        displayMoviesOnly(anchorDisplay, newestMovies);
 
+    }
+
+    public void userMenuClicked(MouseEvent mouseEvent) {
+        comUserMenu.show(anchorControlFrame, Side.LEFT, btnMenu.getLayoutX() + 15, btnMenu.getLayoutY() + 35);
+    }
+
+    public void btnHomePressed(ActionEvent actionEvent) {
+        clearContent(anchorDisplay);
+        displayHomeContent(anchorDisplay, "Watch Again...", "Trending");
     }
 }
