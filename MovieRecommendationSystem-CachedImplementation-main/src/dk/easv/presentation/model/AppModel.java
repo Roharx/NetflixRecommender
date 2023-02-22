@@ -101,4 +101,7 @@ public class AppModel {
         return logic.getMoviePicturePathByID(id);
     }
     public ObservableList<Movie> getNewestMovies(){ return logic.getNewestMovies();}
+    public ObservableList<Movie> getAllMovies(){
+        return logic.getAllMovies();
+    }
 }

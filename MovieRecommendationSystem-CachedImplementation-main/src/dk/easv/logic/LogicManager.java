@@ -130,6 +130,8 @@ public class LogicManager {
         return FXCollections.observableArrayList(dataMgr.getNewestMovies());
     }
 
-
+    public ObservableList<Movie> getAllMovies(){
+        return FXCollections.observableArrayList(dataMgr.getAllMovies().values());
+    }
 
 }
