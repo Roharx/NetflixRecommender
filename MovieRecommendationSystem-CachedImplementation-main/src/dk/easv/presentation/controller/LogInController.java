@@ -54,16 +54,7 @@ public class LogInController implements Initializable {
         btnLogin.setDisable(false);
 
         primaryStage.setWidth(1250);
-        //MinimizeWindow();
         primaryStage.show();
-
-        primaryStage.widthProperty().addListener((o, oldValue, newValue)->{
-            if(newValue.intValue() < 850.0) {
-                primaryStage.setResizable(false);
-                primaryStage.setWidth(850);
-                primaryStage.setResizable(true);
-            }
-        });
     }
 
     private void MinimizeWindow(){

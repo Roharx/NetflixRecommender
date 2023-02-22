@@ -124,7 +124,6 @@ public class NetflixAppController implements Initializable {
         String url;
         double xSpacing;
         double ySpacing;
-        //TODO edit to scrollPane
         for (int i = 0; i < amount; i++) {
             xSpacing = 20.0 + i * 290;
             if (hasLabel) {
@@ -164,7 +163,6 @@ public class NetflixAppController implements Initializable {
                 displayElement.setViewOrder(0);
             });
             displayElement.setOnMouseClicked(e -> {
-                //on click, play movie or something
                 clearContent(contentContainer);
                 Label temp = new Label();
                 String selectedTitle = displayElement.getChildren().get(1).toString();//2nd property of the displayElement, it is the movie title
@@ -182,6 +180,7 @@ public class NetflixAppController implements Initializable {
 
             });
             contentContainer.getChildren().add(displayElement);
+            contentContainer.setPadding(new Insets(20,20,30,20));
         }
 
     }
