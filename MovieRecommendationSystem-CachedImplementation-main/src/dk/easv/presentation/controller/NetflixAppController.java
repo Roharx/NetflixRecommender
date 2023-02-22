@@ -8,7 +8,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.scene.control.*;
@@ -22,11 +21,9 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ResourceBundle;
@@ -238,14 +235,13 @@ public class NetflixAppController implements Initializable {
     public void getTopMoviesSeen(ActionEvent actionEvent) {
         displayMovieAmount = 40;
         ObservableList<Movie> moviesSeen = appModel.getObsTopMovieSeen();
-        displayMoviesOnly(anchorDisplay, moviesSeen);
+        addScrollPane(anchorDisplay, moviesSeen);
     }
 
     public void getNewestMovies(ActionEvent actionEvent) {
         displayMovieAmount = 40;
         ObservableList<Movie> newestMovies = appModel.getNewestMovies();
-        displayMoviesOnly(anchorDisplay, newestMovies);
-
+        addScrollPane(anchorDisplay, newestMovies);
     }
 
     public void userMenuClicked(MouseEvent mouseEvent) {
@@ -264,10 +260,14 @@ public class NetflixAppController implements Initializable {
 
     private void displayAllMoviesScrollPane() {
         clearContent(anchorDisplay);
+        ObservableList<Movie> allMovies = appModel.getAllMovies();
+        addScrollPane(anchorDisplay, allMovies);
+    }
+
+    private void addScrollPane(AnchorPane anchorPane, ObservableList<Movie> allMovies) {
+        clearContent(anchorDisplay);
         ScrollPane scrollPane = new ScrollPane();
         Button btnShowMore = new Button();
-
-        ObservableList<Movie> allMovies = appModel.getAllMovies();
 
         btnShowMore.setText("Show More");
 
@@ -303,5 +303,6 @@ public class NetflixAppController implements Initializable {
             test.add(allMovies.get(i));
 
         displayMoviesOnlyWithoutConstraints(scrollPane, test);
+
     }
 }
